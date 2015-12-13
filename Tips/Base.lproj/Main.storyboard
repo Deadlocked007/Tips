@@ -63,7 +63,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 <connections>
-                                    <action selector="onEditingChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="Z4W-Px-2Qd"/>
+                                    <action selector="onPriceChange:" destination="BYZ-38-t0r" eventType="editingChanged" id="O7V-w1-va6"/>
                                 </connections>
                             </textField>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="fcP-t9-xtW">
@@ -74,9 +74,6 @@
                                     <segment title="20%"/>
                                     <segment title="22%"/>
                                 </segments>
-                                <connections>
-                                    <action selector="onEditingChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="CTp-26-xLC"/>
-                                </connections>
                             </segmentedControl>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="67S-HA-a0f">
                                 <rect key="frame" x="139" y="0.0" width="42" height="21"/>
@@ -144,13 +141,13 @@
                                     <segment title="22%"/>
                                 </segments>
                             </segmentedControl>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="18" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ckK-hT-9dL">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ckK-hT-9dL">
                                 <rect key="frame" x="20" y="160" width="90" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 <connections>
-                                    <action selector="onPercentChange:" destination="vCQ-W9-VZW" eventType="editingChanged" id="eTJ-lo-d8M"/>
+                                    <action selector="firstChanger:" destination="vCQ-W9-VZW" eventType="editingDidEnd" id="GaN-Xt-cD2"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Manual percentages:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8D-x3-TZz">
@@ -160,22 +157,22 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="20" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jOr-MV-dbV">
-                                <rect key="frame" x="115" y="160" width="90" height="30"/>
-                                <animations/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="onPercentChange:" destination="vCQ-W9-VZW" eventType="editingDidEnd" id="Ykb-HF-4v3"/>
-                                </connections>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="22" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fwi-DW-mnn">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fwi-DW-mnn">
                                 <rect key="frame" x="210" y="160" width="90" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <action selector="onPercentChange:" destination="vCQ-W9-VZW" eventType="editingDidEnd" id="Wyg-fD-hjP"/>
+                                    <action selector="thirdChanger:" destination="vCQ-W9-VZW" eventType="editingDidEnd" id="idm-VI-UZY"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jOr-MV-dbV">
+                                <rect key="frame" x="115" y="160" width="90" height="30"/>
+                                <animations/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="secondChanger:" destination="vCQ-W9-VZW" eventType="editingDidEnd" id="XAp-9d-icZ"/>
                                 </connections>
                             </textField>
                         </subviews>
@@ -221,7 +218,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bxZ-pp-LJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1970" y="360"/>
+            <point key="canvasLocation" x="1582" y="405"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="obe-gY-x2T">

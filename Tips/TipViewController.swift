@@ -17,6 +17,41 @@ class TipViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         print("view will appear")
+        if NSUserDefaults.standardUserDefaults().objectForKey("firstPercent") != nil {
+            let firstOne = NSUserDefaults.standardUserDefaults().doubleForKey("firstPercent")
+            if (firstOne % 1 == 0) {
+                let firstConverter = String(Int(firstOne)) + "%"
+                [tipControl .setTitle(firstConverter, forSegmentAtIndex:0)]
+            } else {
+                let firstConverter = String(firstOne) + "%"
+                [tipControl .setTitle(firstConverter, forSegmentAtIndex:0)]
+            }
+        }
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("secondPercent") != nil {
+            let secondOne = NSUserDefaults.standardUserDefaults().doubleForKey("secondPercent")
+            if (secondOne % 1 == 0) {
+                let secondConverter = String(Int(secondOne)) + "%"
+                [tipControl .setTitle(secondConverter, forSegmentAtIndex:1)]
+            } else {
+                let secondConverter = String(secondOne) + "%"
+                [tipControl .setTitle(secondConverter, forSegmentAtIndex:1)]
+            }
+        }
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("thirdPercent") != nil {
+            let thirdOne = NSUserDefaults.standardUserDefaults().doubleForKey("thirdPercent")
+            if (thirdOne % 1 == 0) {
+                let thirdConverter = String(Int(thirdOne)) + "%"
+                [tipControl .setTitle(thirdConverter, forSegmentAtIndex:2)]
+            } else {
+                let thirdConverter = String(thirdOne) + "%"
+                [tipControl .setTitle(thirdConverter, forSegmentAtIndex:2)]
+            }
+        }
+        //do ns thingy here
+        //do value after closing here
+        //nslocale + nsnumber formatter to do currency stuff
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -45,18 +80,17 @@ class TipViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func onEditingChange(sender: AnyObject) {
-        var tipPercentages = [0.18, 0.2, 0.22]
-        var tipPercentage = tipPercentages[tipControl.selectedSegmentIndex]
-        var billAmount = NSString(string: billField.text!).doubleValue
-        var tip = billAmount * tipPercentage
-        var total = billAmount + tip
-        tipLabel.text = String(format: "$%.2f", tip)
-        totalLabel.text = String(format: "$%.2f", total)
-        
-        
+    
+    @IBAction func onPriceChange(sender: AnyObject) {
+        let percentage = tipControl.titleForSegmentAtIndex(0)
+        let withoutSign = percentage?.stringByReplacingOccurrencesOfString("%", withString: "");
+        let percent = Double(withoutSign!)
+        if let userEntered = Double(billField.text!) {
+            let output = Double(userEntered * (percent! / 100))
+            totalLabel.text = String(output)
+        }
     }
+    
     
     @IBAction func onTap(sender: AnyObject) {
         view.endEditing(true)
