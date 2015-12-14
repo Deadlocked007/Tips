@@ -24,6 +24,13 @@ The following **additional** features are implemented:
 - [x] Added ability for user to enter custom percentages.
 - [x] Added ability for user to enter custom split number.
 
+The follow features are possible future adduitions:
+
+- [ ] Reset button in settings.
+- [ ] More visually pleasing UI.
+- [ ] Scrolling to choose how many people to split between in the main view.
+- [ ] Force touch 
+
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
@@ -35,6 +42,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+
   While creating my tip calculator the biggest hurdle I had to make over was the fact that I have never done any programming
 in Objective-C let alone Swift. Thankfully, since I joined the IOS dev club at Purdue I got a lot of help and was able to learn
 extremely quickly. Another issue I faced was that I did not have a Mac device to use so I learned how to dual boot OS X on my
