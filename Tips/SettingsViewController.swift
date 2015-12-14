@@ -10,10 +10,16 @@ import UIKit
 
 class SettingsViewController: UIViewController {
 
+    @IBOutlet weak var greenTheme: UIButton!
+    @IBOutlet weak var blueTheme: UIButton!
+    @IBOutlet weak var redTheme: UIButton!
+    @IBOutlet weak var darkTheme: UIButton!
+    @IBOutlet weak var defaultTheme: UIButton!
     @IBOutlet weak var tipControl: UISegmentedControl!
     @IBOutlet weak var firstPercent: UITextField!
     @IBOutlet weak var secondPercent: UITextField!
     @IBOutlet weak var thirdPercent: UITextField!
+    @IBOutlet weak var billSplit: UITextField!
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         if NSUserDefaults.standardUserDefaults().objectForKey("firstPercent") != nil {
@@ -48,6 +54,10 @@ class SettingsViewController: UIViewController {
                 [tipControl .setTitle(thirdConverter, forSegmentAtIndex:2)]
             }
         }
+        
+        if NSUserDefaults.standardUserDefaults().objectForKey("selected") != nil {
+            tipControl.selectedSegmentIndex = NSUserDefaults.standardUserDefaults().integerForKey("selected")
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +69,7 @@ class SettingsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     @IBAction func firstChanger(sender: AnyObject) {
         if let firstOne = Double(firstPercent.text!) {
@@ -73,6 +84,12 @@ class SettingsViewController: UIViewController {
                 NSUserDefaults.standardUserDefaults().setDouble(Double(firstOne), forKey: "firstPercent")
                 NSUserDefaults.standardUserDefaults().synchronize()
             }
+        } else {
+            let firstOne = 0
+            let firstConverter = "0%"
+            [tipControl .setTitle(firstConverter, forSegmentAtIndex:0)]
+            NSUserDefaults.standardUserDefaults().setDouble(Double(firstOne), forKey: "firstPercent")
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
     
@@ -89,8 +106,15 @@ class SettingsViewController: UIViewController {
                 NSUserDefaults.standardUserDefaults().setDouble(Double(secondOne), forKey: "secondPercent")
                 NSUserDefaults.standardUserDefaults().synchronize()
             }
+        } else {
+            let secondOne = 0
+            let secondConverter = "0%"
+            [tipControl .setTitle(secondConverter, forSegmentAtIndex:1)]
+            NSUserDefaults.standardUserDefaults().setDouble(Double(secondOne), forKey: "secondPercent")
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
+    
     
     @IBAction func thirdChanger(sender: AnyObject) {
         if let thirdOne = Double(thirdPercent.text!) {
@@ -105,35 +129,57 @@ class SettingsViewController: UIViewController {
                 NSUserDefaults.standardUserDefaults().setDouble(Double(thirdOne), forKey: "thirdPercent")
                 NSUserDefaults.standardUserDefaults().synchronize()
             }
+        } else {
+            let thirdOne = 0
+            let thirdConverter = "0%"
+            [tipControl .setTitle(thirdConverter, forSegmentAtIndex:2)]
+            NSUserDefaults.standardUserDefaults().setDouble(Double(thirdOne), forKey: "thirdPercent")
+            NSUserDefaults.standardUserDefaults().synchronize()
         }
     }
     
-    @IBAction func onPercentChange(sender: AnyObject) {
-        NSUserDefaults.standardUserDefaults().setInteger(9, forKey: "Hello")
-        NSUserDefaults.standardUserDefaults().integerForKey("Hello")
-        //var tipPercentages = [0.18, 0.2, 0.22]
-        if let firstOne = Double(firstPercent.text!) {
-            let firstConverter = String(firstOne)
-            [tipControl .setTitle(firstConverter, forSegmentAtIndex:0)]
-        }
-        else {
-            [tipControl .setTitle("18%", forSegmentAtIndex:0)]
-        }
-        if let secondOne = Double(secondPercent.text!) {
-            let secondConverter = String(secondOne)
-            [tipControl .setTitle(secondConverter, forSegmentAtIndex:1)]
-        }
-        else {
-            [tipControl .setTitle("20%", forSegmentAtIndex:1)]
-        }
-        if let thirdOne = Double(thirdPercent.text!) {
-            let thirdConverter = String(thirdOne)
-            [tipControl .setTitle(thirdConverter, forSegmentAtIndex:2)]
-        }
-        else {
-            [tipControl .setTitle("22%", forSegmentAtIndex:2)]
-        }
+    @IBAction func segmentChange(sender: AnyObject) {
+        let selection = tipControl.selectedSegmentIndex
+        NSUserDefaults.standardUserDefaults().setInteger(selection, forKey: "selected")
+        NSUserDefaults.standardUserDefaults().synchronize()
     }
+    
+    @IBAction func splitChange(sender: AnyObject) {
+        if let number = Double(billSplit.text!) {
+            if (number > 0) {
+                NSUserDefaults.standardUserDefaults().setDouble(number, forKey: "customNumber")
+            } else {
+                NSUserDefaults.standardUserDefaults().removeObjectForKey("customNumber")
+            }
+        } else {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("customNumber")
+        }
+        
+    }
+    
+    @IBAction func lightThemeChange(sender: AnyObject) {
+            NSUserDefaults.standardUserDefaults().setInteger(1, forKey: "theme")
+    }
+    
+    @IBAction func darkThemeChange(sender: AnyObject) {
+            NSUserDefaults.standardUserDefaults().setInteger(2, forKey: "theme")
+    }
+    
+    
+    @IBAction func redThemeChange(sender: AnyObject) {
+        NSUserDefaults.standardUserDefaults().setInteger(3, forKey: "theme")
+        
+    }
+    
+    @IBAction func blueThemeChange(sender: AnyObject) {
+        NSUserDefaults.standardUserDefaults().setInteger(4, forKey: "theme")
+    }
+    
+    @IBAction func greenThemeChange(sender: AnyObject) {
+        NSUserDefaults.standardUserDefaults().setInteger(5, forKey: "theme")
+    }
+    
+    
     @IBAction func onTap(sender: AnyObject) {
         view.endEditing(true)
     }
