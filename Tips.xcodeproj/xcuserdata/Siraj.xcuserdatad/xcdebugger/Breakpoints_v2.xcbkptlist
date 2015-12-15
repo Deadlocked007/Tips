@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tips/TipViewController.swift"
-            timestampString = "471759101.482574"
+            timestampString = "471836573.170842"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "234"
+            endingLineNumber = "234"
             landmarkName = "whenPercentSelected(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tips/TipViewController.swift"
-            timestampString = "471759101.482574"
+            timestampString = "471836573.170842"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "onPriceChange(_:)"
             landmarkType = "5">
          </BreakpointContent>

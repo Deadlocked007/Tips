@@ -173,7 +173,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXg-Tu-3Et">
+                            <view opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lXg-Tu-3Et">
                                 <rect key="frame" x="0.0" y="64" width="325" height="504"/>
                                 <animations/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.48886303191489361" colorSpace="calibratedRGB"/>
@@ -217,7 +217,7 @@
                 </tapGestureRecognizer>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="Moj-JP-P2g"/>
             </objects>
-            <point key="canvasLocation" x="770" y="429"/>
+            <point key="canvasLocation" x="685" y="390"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="3se-9b-i7w">
@@ -420,7 +420,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1125" y="405"/>
+            <point key="canvasLocation" x="1127" y="390"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Hwr-JE-rBK">
@@ -440,7 +440,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bxZ-pp-LJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1582" y="405"/>
+            <point key="canvasLocation" x="1558" y="390"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="obe-gY-x2T">
@@ -463,6 +463,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pNQ-s3-Kpf"/>
+        <segue reference="6ht-PF-dzE"/>
     </inferredMetricsTieBreakers>
 </document>

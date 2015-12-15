@@ -130,6 +130,53 @@ class TipViewController: UIViewController {
         formatter.locale = NSLocale.currentLocale()
         moneySign.text = formatter.currencySymbol
         moneySign.textColor = UIColor.grayColor()
+        if (NSUserDefaults.standardUserDefaults().objectForKey("billText") != nil) {
+            let newTime = NSDate.timeIntervalSinceReferenceDate()
+            if (newTime - NSUserDefaults.standardUserDefaults().doubleForKey("lastTime") <= 600) {
+                if (NSUserDefaults.standardUserDefaults().doubleForKey("billText") % 1 != 0){
+                    billField.text = String(NSUserDefaults.standardUserDefaults().doubleForKey("billText"))
+                } else {
+                    billField.text = String(Int(NSUserDefaults.standardUserDefaults().doubleForKey("billText")))
+                }
+                let percentage = tipControl.titleForSegmentAtIndex(NSUserDefaults.standardUserDefaults().integerForKey("theSelected"))
+                let withoutSign = percentage?.stringByReplacingOccurrencesOfString("%", withString: "");
+                let percent = Double(withoutSign!)
+                tipControl.selectedSegmentIndex = NSUserDefaults.standardUserDefaults().integerForKey("theSelected")
+                if let userEntered = Double(billField.text!) {
+                    moneySign.hidden = true
+                    let formatter = NSNumberFormatter()
+                    formatter.numberStyle = .CurrencyStyle
+                    formatter.locale = NSLocale.currentLocale()
+                    let output = Double(userEntered * (percent! / 100))
+                    tipLabel.text = formatter.stringFromNumber(output)
+                    totalLabel.text = formatter.stringFromNumber(output + userEntered)
+                    twoTotal.text = formatter.stringFromNumber((output + userEntered) / 2)
+                    threeTotal.text = formatter.stringFromNumber((output + userEntered) / 3)
+                    fourTotal.text = formatter.stringFromNumber((output + userEntered) / 4)
+                    if NSUserDefaults.standardUserDefaults().objectForKey("customNumber") != nil {
+                        let custom = NSUserDefaults.standardUserDefaults().doubleForKey("customNumber")
+                        customTotal.text = formatter.stringFromNumber((output + userEntered) / custom)
+                    } else {
+                        customTotal.text = formatter.stringFromNumber((output + userEntered) / 7)
+                    }
+                    UIView.animateWithDuration(0.4, animations: {
+                        self.tipBackground.alpha = 1
+                        self.tipControl.alpha = 1
+                    })
+                } else {
+                    let formatter = NSNumberFormatter()
+                    formatter.numberStyle = .CurrencyStyle
+                    formatter.locale = NSLocale.currentLocale()
+                    UIView.animateWithDuration(0.4, animations: {
+                        self.tipBackground.alpha = 0
+                        self.tipControl.alpha = 0
+                    })
+                    tipLabel.text = formatter.stringFromNumber(0.00)
+                    totalLabel.text = formatter.stringFromNumber(0.00)
+                    moneySign.hidden = false
+                }
+            }
+        }
         //do ns thingy here
         //do value after closing here
         //nslocale + nsnumber formatter to do currency stuff
@@ -143,6 +190,15 @@ class TipViewController: UIViewController {
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        NSUserDefaults.standardUserDefaults().setDouble(NSDate.timeIntervalSinceReferenceDate(), forKey: "lastTime")
+        if let userEntered = Double(billField.text!) {
+            NSUserDefaults.standardUserDefaults().setDouble(userEntered, forKey: "billText")
+            NSUserDefaults.standardUserDefaults().setInteger(tipControl.selectedSegmentIndex, forKey: "theSelected")
+        } else {
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("billText")
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("lastTime")
+            NSUserDefaults.standardUserDefaults().removeObjectForKey("theSelected")
+        }
         print("view will disappear")
     }
     
@@ -178,6 +234,7 @@ class TipViewController: UIViewController {
         let withoutSign = percentage?.stringByReplacingOccurrencesOfString("%", withString: "");
         let percent = Double(withoutSign!)
         if let userEntered = Double(billField.text!) {
+            moneySign.hidden = true
             let formatter = NSNumberFormatter()
             formatter.numberStyle = .CurrencyStyle
             formatter.locale = NSLocale.currentLocale()
@@ -207,6 +264,7 @@ class TipViewController: UIViewController {
             })
             tipLabel.text = formatter.stringFromNumber(0.00)
             totalLabel.text = formatter.stringFromNumber(0.00)
+            moneySign.hidden = false
         }
     }
     
