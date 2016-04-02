@@ -20,8 +20,12 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var secondPercent: UITextField!
     @IBOutlet weak var thirdPercent: UITextField!
     @IBOutlet weak var billSplit: UITextField!
+    
+    weak var delegate:TipViewControllerDelegate?
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
         if NSUserDefaults.standardUserDefaults().objectForKey("firstPercent") != nil {
             let firstOne = NSUserDefaults.standardUserDefaults().doubleForKey("firstPercent")
             if (firstOne % 1 == 0) {
@@ -184,6 +188,14 @@ class SettingsViewController: UIViewController {
         view.endEditing(true)
     }
 
+    @IBAction func onReset(sender: AnyObject) {
+        let appDomain = NSBundle.mainBundle().bundleIdentifier
+        NSUserDefaults.standardUserDefaults().removePersistentDomainForName(appDomain!)
+        self.view.setNeedsDisplay()
+        delegate?.didReset()
+    }
+    
+    
     /*
     // MARK: - Navigation
 

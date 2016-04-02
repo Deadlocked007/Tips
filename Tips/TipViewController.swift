@@ -8,7 +8,11 @@
 
 import UIKit
 
-class TipViewController: UIViewController {
+protocol TipViewControllerDelegate: class {
+    func didReset()
+}
+
+class TipViewController: UIViewController, TipViewControllerDelegate {
     @IBOutlet weak var tipLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var billField: UITextField!
@@ -27,7 +31,7 @@ class TipViewController: UIViewController {
     @IBOutlet weak var moneySign: UILabel!
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        print("view will appear")
+        
         if NSUserDefaults.standardUserDefaults().objectForKey("customNumber") != nil {
             let custom = NSUserDefaults.standardUserDefaults().doubleForKey("customNumber")
             customNumber.text = String(custom)
@@ -184,8 +188,6 @@ class TipViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        print("view did appear")
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -199,12 +201,10 @@ class TipViewController: UIViewController {
             NSUserDefaults.standardUserDefaults().removeObjectForKey("lastTime")
             NSUserDefaults.standardUserDefaults().removeObjectForKey("theSelected")
         }
-        print("view will disappear")
     }
     
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(animated)
-        print("view did disappear")
     }
     
     override func viewDidLoad() {
@@ -310,5 +310,30 @@ class TipViewController: UIViewController {
     @IBAction func onTap(sender: AnyObject) {
         view.endEditing(true)
     }
+    
+    func didReset() {
+        self.view.setNeedsDisplay()
+        self.billField.text = ""
+        let formatter = NSNumberFormatter()
+        formatter.numberStyle = .CurrencyStyle
+        formatter.locale = NSLocale.currentLocale()
+        UIView.animateWithDuration(0.4, animations: {
+            self.tipBackground.alpha = 0
+            self.tipControl.alpha = 0
+        })
+        tipLabel.text = formatter.stringFromNumber(0.00)
+        totalLabel.text = formatter.stringFromNumber(0.00)
+        moneySign.hidden = false
+    }
+    
+    
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let vc = segue.destinationViewController as! SettingsViewController
+        vc.delegate = self
+     }
+ 
 }
 
